@@ -73,6 +73,10 @@ post '/links' do
     link.as_json.merge(base_url: request.base_url).to_json
 end
 
+post '/loggedin' do
+  erb :index
+end
+
 get '/:url' do
     link = Link.find_by_code params[:url]
     raise Sinatra::NotFound if link.nil?

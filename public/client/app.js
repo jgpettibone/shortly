@@ -6,6 +6,7 @@ window.Shortly = Backbone.View.extend({
       <ul> \
         <li><a href="#" class="index">All Links</a></li> \
         <li><a href="#" class="create">Shorten</a></li> \
+        <li><a href="#" class="login">Log In</a></li> \
       </ul> \
       </div> \
       <div id="container"></div>'
@@ -13,7 +14,8 @@ window.Shortly = Backbone.View.extend({
 
   events: {
     "click li a.index":  "renderIndexView",
-    "click li a.create": "renderCreateView"
+    "click li a.create": "renderCreateView",
+    "click li a.login": "renderLoginView"
   },
 
   initialize: function(){
@@ -25,6 +27,14 @@ window.Shortly = Backbone.View.extend({
   render: function(){
     this.$el.html( this.template() );
     return this;
+  },
+
+  renderLoginView: function(e) {
+    console.log("in render function");
+    e && e.preventDefault();
+    var loginView = new Shortly.LoginView();
+    this.$el.find('#container').html( loginView.render().el);
+    this.updateNav('login');
   },
 
   renderIndexView: function(e){
