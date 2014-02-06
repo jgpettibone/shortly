@@ -6,12 +6,14 @@ Shortly.LoginView = Backbone.View.extend({
     <form action="/loggedin" method="POST"> \
       <input class="user" type="text" name="username"> \
       <input class="login" type="text" name="password"> \
-      <input class = "logmein" type="submit" value="log me in!">\
+      <input id= "logmein" type="submit" value="log me in!">\
+      <input id= "register" type = "submit" value="register my username">\
     </form> \
     '),
 
   events: {
-    "submit" : "logMeIn",
+    "click #logmein" : "logMeIn",
+    "click #register" : "register"
   },
 
   render: function() {
@@ -21,7 +23,7 @@ Shortly.LoginView = Backbone.View.extend({
 
   logMeIn: function(e) {
     e.preventDefault();
-    console.log("in logMeIn")
+    console.log("in logMeIn");
     var $user = this.$el.find('.user');
     var $pass = this.$el.find('.login');
     var user = new Shortly.User( {username: $user.val(), password: $pass.val()})
@@ -34,6 +36,7 @@ Shortly.LoginView = Backbone.View.extend({
 
   register: function(e) {
     e.preventDefault();
+    console.log("in register");
     var $user = this.$el.find('.user').val();
     var $pass = this.$el.find('.login .text');
     //do something to register.

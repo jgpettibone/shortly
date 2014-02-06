@@ -86,8 +86,8 @@ post '/links' do
 end
 
 post '/loggedin' do
-  puts request.body.read
-  redirect '/'
+  data = JSON.parse request.body.read
+  puts data
 end
 
 get '/:url' do

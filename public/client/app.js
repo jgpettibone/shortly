@@ -22,8 +22,7 @@ window.Shortly = Backbone.View.extend({
   initialize: function(){
     console.log( "Shortly is running" );
     $('body').append(this.render().el);
-    this.renderIndexView(); // default view
-    // loginView.on('userloggedin', this.renderIndexView());
+    this.renderLoginView(); // default view
   },
 
   render: function(){
@@ -35,6 +34,11 @@ window.Shortly = Backbone.View.extend({
     console.log("in render function");
     e && e.preventDefault();
     var loginView = new Shortly.LoginView();
+    var that = this;
+    loginView.on('userloggedin', function() {
+      console.log("heard userlogin event");
+      that.renderIndexView();
+    });
     this.$el.find('#container').html( loginView.render().el);
     this.updateNav('login');
   },
