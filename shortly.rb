@@ -5,6 +5,7 @@ require 'digest/sha1'
 require 'pry'
 require 'uri'
 require 'open-uri'
+require 'SecureRandom'
 # require 'nokogiri'
 
 ###########################################################
@@ -69,11 +70,24 @@ get '/' do
   # end
 end
 
+loggedin = false
+
 get '/links' do
-  links = Link.order("created_at DESC")
-  links.map { |link|
-    link.as_json.merge(base_url: request.base_url)
-  }.to_json
+  puts 'in get /links'
+  if loggedin then
+    links = Link.order("created_at DESC")
+    links.map { |link|
+      link.as_json.merge(base_url: request.base_url)
+    }.to_json
+  else
+    puts 'in get /links else'
+    redirect '/login'
+    puts 'after redirect'
+  end
+end
+
+get '/login' do
+  erb :index
 end
 
 post '/links' do
@@ -88,6 +102,9 @@ end
 post '/loggedin' do
   data = JSON.parse request.body.read
   puts data
+  hashedP = hashPassword(data['password'])
+  saltedP = saltPassword(data['password'])
+  user = User.create({username: data['username'], password_hash: hashedP, password_salt: saltedP})
 end
 
 get '/:url' do
@@ -100,6 +117,18 @@ end
 ###########################################################
 # Utility
 ###########################################################
+
+def hashPassword (password)
+  result = Digest::SHA1.hexdigest(password)
+  puts "hash: #{result}"
+  result
+end
+
+def saltPassword (password)
+  result = SecureRandom.base64
+  puts "salt: #{result}"
+  result
+end
 
 def read_url_head url
   head = ""

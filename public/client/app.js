@@ -4,7 +4,7 @@ window.Shortly = Backbone.View.extend({
       <h1>Shortly</h1> \
       <div class="navigation"> \
       <ul> \
-        <li><a href="#" class="index">All Links</a></li> \
+        <li><a class="index">All Links</a></li> \
         <li><a href="#" class="create">Shorten</a></li> \
         <li><a href="#" class="login">Log In</a></li>\
       </ul> \
@@ -66,3 +66,5 @@ window.Shortly = Backbone.View.extend({
   }
 
 });
+
+

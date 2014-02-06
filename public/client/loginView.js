@@ -1,5 +1,7 @@
 Shortly.LoginView = Backbone.View.extend({
 
+  url: '/login',
+  
   className: 'login',
 
   template: _.template(' \
