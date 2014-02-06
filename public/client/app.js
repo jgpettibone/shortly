@@ -6,7 +6,7 @@ window.Shortly = Backbone.View.extend({
       <ul> \
         <li><a href="#" class="index">All Links</a></li> \
         <li><a href="#" class="create">Shorten</a></li> \
-        <li><a href="#" class="login">Log In</a></li> \
+        <li><a href="#" class="login">Log In</a></li>\
       </ul> \
       </div> \
       <div id="container"></div>'
@@ -18,10 +18,12 @@ window.Shortly = Backbone.View.extend({
     "click li a.login": "renderLoginView"
   },
 
+
   initialize: function(){
     console.log( "Shortly is running" );
     $('body').append(this.render().el);
     this.renderIndexView(); // default view
+    // loginView.on('userloggedin', this.renderIndexView());
   },
 
   render: function(){
